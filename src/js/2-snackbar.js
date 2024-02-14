@@ -27,10 +27,20 @@ form.addEventListener('submit', function (event) {
 
     promise.then(
         (result) => {
-            iziToast.show({ title: 'Fulfilled', message: `✅ Fulfilled promise in ${result}ms` });
+            iziToast.show({
+                message: `✅ Fulfilled promise in ${result}ms`,
+                messageColor: 'white',
+                backgroundColor: '#45a049',
+                position: 'topRight'
+            });
         },
         (error) => {
-            iziToast.show({ title: 'Rejected', message: `❌ Rejected promise in ${error}ms` });
+            iziToast.show({
+                message: `❌ Rejected promise in ${error}ms`,
+                messageColor: 'white',
+                backgroundColor: 'red',
+                position: 'topRight'
+            });
         }
     );
 });
