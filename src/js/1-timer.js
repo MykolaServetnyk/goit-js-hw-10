@@ -20,17 +20,16 @@ const options = {
     minuteIncrement: 1,
     onClose(selectedDates) {
         userSelectedDate = new Date(selectedDates[0]);
+        const isValidDate = userSelectedDate && userSelectedDate >= new Date();
 
-        if (userSelectedDate && userSelectedDate >= new Date()) {
+        startButton.disabled = !isValidDate;
 
-            startButton.disabled = false;
-        } else {
+        if (!isValidDate) {
             iziToast.show({
                 message: "Please choose a date in the future",
                 messageColor: 'white',
                 backgroundColor: 'red',
             });
-            startButton.disabled = true;
         }
     }
 };
@@ -42,15 +41,17 @@ function addLeadingZero(value) {
 }
 
 function updateTimerDisplay(time) {
-    const daysElement = document.querySelector('[data-days]');
-    const hoursElement = document.querySelector('[data-hours]');
-    const minutesElement = document.querySelector('[data-minutes]');
-    const secondsElement = document.querySelector('[data-seconds]');
+    const updateElement = (identifier, value) => {
+        const element = document.querySelector(`[data-${identifier}]`);
+        if (element) {
+            element.textContent = addLeadingZero(value);
+        }
+    };
 
-    daysElement.textContent = addLeadingZero(time.days);
-    hoursElement.textContent = addLeadingZero(time.hours);
-    minutesElement.textContent = addLeadingZero(time.minutes);
-    secondsElement.textContent = addLeadingZero(time.seconds);
+    updateElement('days', time.days);
+    updateElement('hours', time.hours);
+    updateElement('minutes', time.minutes);
+    updateElement('seconds', time.seconds);
 }
 
 function convertMs(ms) {
