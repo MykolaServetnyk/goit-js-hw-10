@@ -33,7 +33,8 @@ form.addEventListener('submit', function (event) {
                 backgroundColor: '#45a049',
                 position: 'topRight'
             });
-        },
+        }
+    ).catch(
         (error) => {
             iziToast.show({
                 message: `❌ Rejected promise in ${error}ms`,
